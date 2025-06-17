@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants-section">
+            <strong>Participants:</strong>
+            <ul class="participants-list">
+              ${details.participants && details.participants.length > 0
+                ? details.participants.map(p => `<li>${p}</li>`).join('')
+                : '<li><em>No participants yet</em></li>'}
+            </ul>
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
@@ -83,4 +91,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize app
   fetchActivities();
+
+  // Add pretty styles for participants section
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .activity-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin-bottom: 20px; background: #fafbfc; box-shadow: 0 2px 6px #0001; }
+    .participants-section { margin-top: 16px; background: #f0f4f8; border-radius: 6px; padding: 10px 14px; }
+    .participants-section strong { color: #2d5be3; font-size: 1.05em; }
+    .participants-list { margin: 8px 0 0 0; padding-left: 20px; }
+    .participants-list li { color: #333; font-size: 0.98em; margin-bottom: 2px; }
+    .participants-list em { color: #888; }
+  `;
+  document.head.appendChild(style);
 });
